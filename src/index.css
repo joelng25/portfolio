@@ -1,10 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  --default-mono-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-mono: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --default-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --default-mono-font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 @theme inline {
@@ -37,7 +37,7 @@
   }
 }
 
-:root[data-theme="light"] {
+:root[data-theme='light'] {
   --radius: 0.25rem;
   --background: oklch(97% 0.018 75);
   --foreground: oklch(32% 0.055 40);
@@ -144,10 +144,10 @@
 .ascii-name .ascii-canvas {
   opacity: 0;
 }
-.ascii-name[data-active="true"] .ascii-canvas {
+.ascii-name[data-active='true'] .ascii-canvas {
   opacity: 1;
 }
-.ascii-name[data-active="true"] .ascii-name-original {
+.ascii-name[data-active='true'] .ascii-name-original {
   opacity: 0;
 }
 .ascii-wave {

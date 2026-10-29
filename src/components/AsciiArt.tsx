@@ -67,7 +67,7 @@ export function AsciiArt({ name = false }: { name?: boolean }) {
       const t = reduced.matches ? 0 : time / 1800
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-          let v = 0
+          let v: number
           let dy = 0
           if (name) {
             v = (mask?.[(y * 200 + x) * 4 + 3] ?? 0) / 255

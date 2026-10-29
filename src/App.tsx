@@ -97,13 +97,25 @@ export default function App() {
               </button>
             ))}
           </div>
-          <a href={GITHUB} target="_blank" rel="noreferrer" aria-label="GitHub" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+          <a
+            href={GITHUB}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="GitHub"
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-primary"
+          >
             <Github className="h-4 w-4" />{' '}
             <span className="hidden sm:inline">
               <S>GitHub</S>
             </span>
           </a>
-          <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+          <a
+            href={LINKEDIN}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="LinkedIn"
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-primary"
+          >
             <Linkedin className="h-4 w-4" />{' '}
             <span className="hidden sm:inline">
               <S>LinkedIn</S>
@@ -114,9 +126,7 @@ export default function App() {
 
       <main className="mx-auto max-w-6xl px-6">
         <section className="flex min-h-[88vh] flex-col justify-between gap-16 border-b border-border py-10 md:py-14">
-          <p className="max-w-4xl font-sans text-3xl font-black leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
-            {d.statement}
-          </p>
+          <p className="max-w-4xl font-sans text-3xl font-black leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">{d.statement}</p>
           <div className="grid gap-10 text-xs uppercase tracking-widest md:grid-cols-3">
             <span className="text-muted-foreground">{d.findOutMore}</span>
             <ul className="space-y-1.5">
@@ -161,10 +171,7 @@ export default function App() {
           </div>
           <div>
             {projects.map((p, i) => (
-              <article
-                key={p.repo}
-                className="group border-t border-border py-10 transition-colors last:border-b hover:bg-card md:py-12"
-              >
+              <article key={p.repo} className="group border-t border-border py-10 transition-colors last:border-b hover:bg-card md:py-12">
                 <div className="grid gap-6 md:grid-cols-12 md:gap-8">
                   <div className="text-xs text-muted-foreground md:col-span-2">
                     J{String(i + 1).padStart(3, '0')}
@@ -174,9 +181,7 @@ export default function App() {
                     <h3 className="font-sans text-3xl font-semibold leading-tight transition-colors group-hover:text-primary md:text-4xl">
                       <S>{p.name}</S>
                       {p.demo && (
-                        <span className="ml-3 align-middle font-sans text-xs uppercase tracking-widest text-primary">
-                          [{d.live}]
-                        </span>
+                        <span className="ml-3 align-middle font-sans text-xs uppercase tracking-widest text-primary">[{d.live}]</span>
                       )}
                     </h3>
                     <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{p.desc[lang]}</p>
@@ -188,7 +193,12 @@ export default function App() {
                       ))}
                     </div>
                     <div className="flex flex-wrap gap-5 text-xs uppercase tracking-widest">
-                      <a href={`${GITHUB}/${p.repo}`} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary">
+                      <a
+                        href={`${GITHUB}/${p.repo}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-1 hover:text-primary"
+                      >
                         <S>{d.code}</S> <ArrowUpRight className="h-3.5 w-3.5" />
                       </a>
                       {p.demo && (

@@ -24,10 +24,17 @@ function Icon({ children, className, ...rest }: IconProps) {
 }
 
 export const ArrowUpRight = (p: IconProps) => (
-  <Icon {...p}><path d="M7 7h10v10" /><path d="M7 17 17 7" /></Icon>
+  <Icon {...p}>
+    <path d="M7 7h10v10" />
+    <path d="M7 17 17 7" />
+  </Icon>
 )
 export const Download = (p: IconProps) => (
-  <Icon {...p}><path d="M12 15V3" /><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><path d="m7 10 5 5 5-5" /></Icon>
+  <Icon {...p}>
+    <path d="M12 15V3" />
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+    <path d="m7 10 5 5 5-5" />
+  </Icon>
 )
 export const Github = (p: IconProps) => (
   <Icon {...p}>
@@ -43,19 +50,36 @@ export const Linkedin = (p: IconProps) => (
   </Icon>
 )
 export const Moon = (p: IconProps) => (
-  <Icon {...p}><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></Icon>
+  <Icon {...p}>
+    <path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" />
+  </Icon>
 )
 export const Sun = (p: IconProps) => (
   <Icon {...p}>
     <circle cx="12" cy="12" r="4" />
-    <path d="M12 2v2" /><path d="M12 20v2" /><path d="m4.93 4.93 1.41 1.41" /><path d="m17.66 17.66 1.41 1.41" />
-    <path d="M2 12h2" /><path d="M20 12h2" /><path d="m6.34 17.66-1.41 1.41" /><path d="m19.07 4.93-1.41 1.41" />
+    <path d="M12 2v2" />
+    <path d="M12 20v2" />
+    <path d="m4.93 4.93 1.41 1.41" />
+    <path d="m17.66 17.66 1.41 1.41" />
+    <path d="M2 12h2" />
+    <path d="M20 12h2" />
+    <path d="m6.34 17.66-1.41 1.41" />
+    <path d="m19.07 4.93-1.41 1.41" />
   </Icon>
 )
-const speaker = 'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z'
+const speaker =
+  'M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z'
 export const Volume2 = (p: IconProps) => (
-  <Icon {...p}><path d={speaker} /><path d="M16 9a5 5 0 0 1 0 6" /><path d="M19.364 18.364a9 9 0 0 0 0-12.728" /></Icon>
+  <Icon {...p}>
+    <path d={speaker} />
+    <path d="M16 9a5 5 0 0 1 0 6" />
+    <path d="M19.364 18.364a9 9 0 0 0 0-12.728" />
+  </Icon>
 )
 export const VolumeX = (p: IconProps) => (
-  <Icon {...p}><path d={speaker} /><line x1="22" x2="16" y1="9" y2="15" /><line x1="16" x2="22" y1="9" y2="15" /></Icon>
+  <Icon {...p}>
+    <path d={speaker} />
+    <line x1="22" x2="16" y1="9" y2="15" />
+    <line x1="16" x2="22" y1="9" y2="15" />
+  </Icon>
 )

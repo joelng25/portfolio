@@ -31,9 +31,7 @@ export function ScrambleText({ children }: { children: string }) {
         if (now - last > 40) {
           setShown(
             Array.from(children, (ch, i) =>
-              /\s/.test(ch) || i < progress * children.length
-                ? ch
-                : (GLYPHS[Math.floor(Math.random() * GLYPHS.length)] ?? ch),
+              /\s/.test(ch) || i < progress * children.length ? ch : (GLYPHS[Math.floor(Math.random() * GLYPHS.length)] ?? ch),
             ).join(''),
           )
           last = now

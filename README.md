@@ -14,8 +14,8 @@ Personal portfolio. I'm a Computer Engineering student at UPC in Barcelona. I bu
 
 ## Screenshots
 
-| Selected work | Mobile |
-| --- | --- |
+| Selected work                                           | Mobile                                                |
+| ------------------------------------------------------- | ----------------------------------------------------- |
 | ![Selected work section](docs/screenshots/projects.png) | ![Mobile view (390×844)](docs/screenshots/mobile.png) |
 
 ## Features
@@ -32,15 +32,15 @@ Personal portfolio. I'm a Computer Engineering student at UPC in Barcelona. I bu
 
 ## Projects shown
 
-| Project | Stack | Links |
-| --- | --- | --- |
-| Pulso Ciudadano | React, TypeScript, Vercel | [code](https://github.com/joelng25/pulso-ciudadano) · [demo](https://pulso-ciudadano-green.vercel.app) |
-| Task Tracker | C++, React, TypeScript, Docker | [code](https://github.com/joelng25/Task-Tracker) · [demo](https://task-tracker-web-4uqz.onrender.com) |
-| Lingua Check | TypeScript, Chrome Extension, LanguageTool | [code](https://github.com/joelng25/lingua-check) |
-| YouTube Remaining Time | JavaScript, Chrome Extension | [code](https://github.com/joelng25/youtube-remaining-time-speed) |
-| Task Tracker CLI | C++, GoogleTest, Make | [code](https://github.com/joelng25/Task-Tracker-CLI) · [release v2.2.0](https://github.com/joelng25/Task-Tracker-CLI/releases/tag/v2.2.0) |
-| Basic Calculator | Python, Tkinter, pytest | [code](https://github.com/joelng25/basic-calculator) |
-| Number Guessing Game | C++, CLI | [code](https://github.com/joelng25/Number-Guessing-Game-CLI) |
+| Project                | Stack                                      | Links                                                                                                                                     |
+| ---------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Pulso Ciudadano        | React, TypeScript, Vercel                  | [code](https://github.com/joelng25/pulso-ciudadano) · [demo](https://pulso-ciudadano-green.vercel.app)                                    |
+| Task Tracker           | C++, React, TypeScript, Docker             | [code](https://github.com/joelng25/Task-Tracker) · [demo](https://task-tracker-web-4uqz.onrender.com)                                     |
+| Lingua Check           | TypeScript, Chrome Extension, LanguageTool | [code](https://github.com/joelng25/lingua-check)                                                                                          |
+| YouTube Remaining Time | JavaScript, Chrome Extension               | [code](https://github.com/joelng25/youtube-remaining-time-speed)                                                                          |
+| Task Tracker CLI       | C++, GoogleTest, Make                      | [code](https://github.com/joelng25/Task-Tracker-CLI) · [release v2.2.0](https://github.com/joelng25/Task-Tracker-CLI/releases/tag/v2.2.0) |
+| Basic Calculator       | Python, Tkinter, pytest                    | [code](https://github.com/joelng25/basic-calculator)                                                                                      |
+| Number Guessing Game   | C++, CLI                                   | [code](https://github.com/joelng25/Number-Guessing-Game-CLI)                                                                              |
 
 ## Stack
 
@@ -86,11 +86,11 @@ npm install
 npm run dev
 ```
 
-| Command | Description |
-| --- | --- |
-| `npm run dev` | Start the dev server at http://localhost:5173 |
-| `npm run build` | Type-check (`tsc -b`) and build for production into `dist/` |
-| `npm run preview` | Serve the production build locally |
+| Command           | Description                                                 |
+| ----------------- | ----------------------------------------------------------- |
+| `npm run dev`     | Start the dev server at http://localhost:5173               |
+| `npm run build`   | Type-check (`tsc -b`) and build for production into `dist/` |
+| `npm run preview` | Serve the production build locally                          |
 
 All texts and project data live in `src/content.ts`.
 

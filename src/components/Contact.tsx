@@ -36,8 +36,7 @@ const labels: Record<Lang, Record<'title' | 'name' | 'email' | 'msg' | 'send' | 
   },
 }
 
-const field =
-  'w-full rounded-sm border border-border bg-card px-3 py-2 text-foreground outline-none focus:border-primary'
+const field = 'w-full rounded-sm border border-border bg-card px-3 py-2 text-foreground outline-none focus:border-primary'
 
 /**
  * Same form as the original site. The site is static on Vercel (no backend),
@@ -72,24 +71,8 @@ export function Contact({ lang }: { lang: Lang }) {
       <h2 className="mb-8 font-sans text-sm text-accent">$ cat {t.title}</h2>
       <form onSubmit={onSubmit} className="grid max-w-xl gap-4">
         <input name="name" required maxLength={100} placeholder={t.name} aria-label={t.name} className={field} />
-        <input
-          name="email"
-          type="email"
-          required
-          maxLength={255}
-          placeholder={t.email}
-          aria-label={t.email}
-          className={field}
-        />
-        <textarea
-          name="message"
-          required
-          maxLength={2000}
-          rows={5}
-          placeholder={t.msg}
-          aria-label={t.msg}
-          className={field}
-        />
+        <input name="email" type="email" required maxLength={255} placeholder={t.email} aria-label={t.email} className={field} />
+        <textarea name="message" required maxLength={2000} rows={5} placeholder={t.msg} aria-label={t.msg} className={field} />
         <button
           disabled={status === 'sending'}
           className="w-fit rounded-sm bg-[oklch(52%_0.19_25)] px-5 py-2 font-sans text-sm text-primary-foreground disabled:opacity-60"
