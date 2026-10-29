@@ -6,9 +6,9 @@
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 [![Vercel](https://img.shields.io/badge/Deployed_on-Vercel-000000?logo=vercel&logoColor=white)](https://portfolio-sigma-roan-wlb4xykmfi.vercel.app/)
 
-Personal portfolio of Joel Novio García, a Computer Engineering student (Software Engineering track) at UPC / FIB in Barcelona, focused on frontend development.
+Personal portfolio, I'm a Computer Engineering student (Software Engineering track) at UPC / FIB in Barcelona, focused on frontend development.
 
-**Live site:** https://portfolio-sigma-roan-wlb4xykmfi.vercel.app/
+**Live site:** https://portfolio-joelng25s-projects.vercel.app
 
 ![Desktop view of the portfolio hero](docs/screenshots/desktop-hero.png)
 
