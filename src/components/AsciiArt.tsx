@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 const RAMP = '.:-=+*!?238ON#'
 const NAME = 'Joel Novio Garcia'
 const triggerClass =
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2 hover:bg-accent hover:text-accent-foreground ascii-name-trigger'
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-semibold cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 px-4 py-2 hover:bg-accent hover:text-accent-foreground ascii-name-trigger'
 
 /** `name` renders the hoverable ASCII version of the name; otherwise the footer wave. */
 export function AsciiArt({ name = false }: { name?: boolean }) {

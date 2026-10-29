@@ -114,7 +114,7 @@ export default function App() {
 
       <main className="mx-auto max-w-6xl px-6">
         <section className="flex min-h-[88vh] flex-col justify-between gap-16 border-b border-border py-10 md:py-14">
-          <p className="max-w-4xl font-sans text-3xl font-extrabold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+          <p className="max-w-4xl font-sans text-3xl font-black leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
             {d.statement}
           </p>
           <div className="grid gap-10 text-xs uppercase tracking-widest md:grid-cols-3">
@@ -171,7 +171,7 @@ export default function App() {
                     <span className="mt-1 block">{p.year}</span>
                   </div>
                   <div className="md:col-span-6">
-                    <h3 className="font-sans text-3xl leading-tight transition-colors group-hover:text-primary md:text-4xl">
+                    <h3 className="font-sans text-3xl font-semibold leading-tight transition-colors group-hover:text-primary md:text-4xl">
                       <S>{p.name}</S>
                       {p.demo && (
                         <span className="ml-3 align-middle font-sans text-xs uppercase tracking-widest text-primary">

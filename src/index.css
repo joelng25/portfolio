@@ -139,7 +139,7 @@
   font-family: var(--font-sans);
   letter-spacing: 0;
   font-size: 148px;
-  font-weight: 800;
+  font-weight: 900;
 }
 .ascii-name .ascii-canvas {
   opacity: 0;
@@ -180,4 +180,18 @@
     scroll-behavior: auto !important;
     transition-duration: 0s !important;
   }
+}
+
+/* Bolder typography: one weight step above the original design. */
+body {
+  font-weight: 500;
+  font-synthesis-weight: auto;
+}
+button,
+input,
+textarea {
+  font-weight: inherit;
+}
+h2 {
+  font-weight: 600;
 }
