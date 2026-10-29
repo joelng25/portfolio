@@ -1,4 +1,4 @@
-# Joel Novio García — Portfolio
+# Joel Novio Garcia — Portfolio
 
 Personal portfolio of Joel Novio García, a Computer Engineering student (Software Engineering) at UPC in Barcelona, focused on frontend development.
 
