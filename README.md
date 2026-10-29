@@ -1,58 +1,57 @@
-# Joel Novio García — portfolio
+# Joel Novio García — Portfolio
 
-Hand-coded personal site (React, TypeScript, Vite, Tailwind). One page, with English, Catalan, and Spanish, and a light/dark theme.
+Personal portfolio of Joel Novio García, a Computer Engineering student (Software Engineering) at UPC in Barcelona, focused on frontend development.
 
-This folder is in the Task-Tracker repository only because this environment cannot create `joelng25/portfolio`. The GitHub token here is an installation token for Task-Tracker. `gh repo create joelng25/portfolio` fails with `Resource not accessible by integration (createRepository)`, and `gh api user` returns 403. **Move this site to its own repository** (`joelng25/portfolio`) so it is not tied to the task app.
+**Live:** https://portfolio-sigma-roan-wlb4xykmfi.vercel.app/
 
-Screenshot slots are marked `TODO` on purpose. Drop real images in when they exist.
+## Features
 
-## Scripts
+- Single-page site with sections for work, about and contact
+- Three languages: English, Catalan and Spanish
+- Light and dark theme
+- Project cards with links to each repository and live demo
+- Section navigation that highlights the section in view, plus a skip-to-content link
+- Page title and Open Graph title update with the selected language
+
+## Stack
+
+- React 19 + TypeScript
+- Vite 7
+- Tailwind CSS 4 (`@tailwindcss/vite`)
+- Fonts: Fraunces and Atkinson Hyperlegible (`@fontsource`)
+
+## Run locally
 
 ```bash
-cd portfolio
 npm install
-npm run dev
-npm run build
-npm run preview
+npm run dev      # http://localhost:5173
+npm run build    # type-check + production build to dist/
+npm run preview  # serve the build
 ```
 
-`npm run dev` serves the site at `http://localhost:5173`.
+## Deploy (Vercel)
 
-## Move it to `joelng25/portfolio`
+Import the repository in Vercel with the **Vite** preset. No environment variables are needed. `vercel.json` sets the build command (`npm run build`), the output directory (`dist`) and some security headers.
 
-1. On GitHub, create an empty public repository named `portfolio` under `joelng25`.
-2. Copy the contents of this `portfolio/` directory to that repository’s root (`package.json` should sit next to `index.html`, not inside another `portfolio/` folder).
-3. Push the default branch.
+## Project structure
 
-```bash
-git clone https://github.com/joelng25/portfolio.git
-# copy the files from this folder into that clone, then:
-git add .
-git commit -m "Add personal portfolio"
-git push
+```
+├── public/
+│   └── favicon.svg
+├── src/
+│   ├── App.tsx              # page layout and sections
+│   ├── content.ts           # all texts and projects (EN/CA/ES)
+│   ├── components/
+│   │   ├── ExternalLink.tsx
+│   │   └── ScreenshotSlot.tsx
+│   ├── index.css
+│   └── main.tsx
+├── index.html
+├── vercel.json
+└── vite.config.ts
 ```
 
-## Deploy on Vercel
+## Contact
 
-No environment variables are required.
-
-### From `joelng25/portfolio` (preferred)
-
-1. In Vercel, choose **Add New… → Project** and import `joelng25/portfolio`.
-2. Framework preset: **Vite**.
-3. Root directory: leave it as the repository root.
-4. Build command: `npm run build`.
-5. Output directory: `dist`.
-6. Deploy.
-
-`vercel.json` in this folder already sets the build command, the output directory, and a few response headers. Vercel reads it when this folder is the project root.
-
-### From this Task-Tracker branch (temporary)
-
-1. Import `joelng25/Task-Tracker`.
-2. Set **Root Directory** to `portfolio`.
-3. Framework preset: **Vite**.
-4. Build command: `npm run build`. Output directory: `dist`.
-5. Deploy.
-
-Use the production branch that contains this folder. After the site has its own repository, import that repository instead and remove the Task-Tracker project (or stop deploying it) so the portfolio is not rebuilt from the task app.
+- GitHub: [github.com/joelng25](https://github.com/joelng25)
+- LinkedIn: [linkedin.com/in/joel-novio](https://www.linkedin.com/in/joel-novio)
