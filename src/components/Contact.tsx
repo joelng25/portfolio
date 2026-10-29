@@ -92,7 +92,7 @@ export function Contact({ lang }: { lang: Lang }) {
         />
         <button
           disabled={status === 'sending'}
-          className="w-fit rounded-sm bg-primary px-5 py-2 font-sans text-sm text-primary-foreground disabled:opacity-60"
+          className="w-fit rounded-sm bg-[oklch(52%_0.19_25)] px-5 py-2 font-sans text-sm text-primary-foreground disabled:opacity-60"
         >
           {status === 'sending' ? t.sending : t.send}
         </button>

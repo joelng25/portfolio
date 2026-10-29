@@ -97,13 +97,13 @@ export default function App() {
               </button>
             ))}
           </div>
-          <a href={GITHUB} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+          <a href={GITHUB} target="_blank" rel="noreferrer" aria-label="GitHub" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
             <Github className="h-4 w-4" />{' '}
             <span className="hidden sm:inline">
               <S>GitHub</S>
             </span>
           </a>
-          <a href={LINKEDIN} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+          <a href={LINKEDIN} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
             <Linkedin className="h-4 w-4" />{' '}
             <span className="hidden sm:inline">
               <S>LinkedIn</S>

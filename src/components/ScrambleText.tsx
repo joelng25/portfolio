@@ -60,7 +60,8 @@ export function ScrambleText({ children }: { children: string }) {
 
   const glyphs = Array.from(shown)
   return (
-    <span ref={ref} className="scramble-text" aria-label={children}>
+    <span ref={ref} className="scramble-text">
+      <span className="sr-only">{children}</span>
       {Array.from(children, (ch, i) => (
         <span key={i} className="scramble-character" aria-hidden="true">
           <span className="scramble-original">{ch}</span>
