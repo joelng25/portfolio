@@ -73,7 +73,22 @@ Live electoral opinion poll: people vote for a candidacy and see the results str
 └── vite.config.ts
 ```
 
-## Scripts
+
+- Single-page site with sections for work, about and contact
+- Three languages: English, Catalan and Spanish
+- Light and dark theme
+- Project cards with links to each repository and live demo
+- Section navigation that highlights the section in view, plus a skip-to-content link
+- Page title and Open Graph title update with the selected language
+
+## Stack
+
+- React 19 + TypeScript
+- Vite 7
+- Tailwind CSS 4 (`@tailwindcss/vite`)
+- Fonts: Fraunces and Atkinson Hyperlegible (`@fontsource`)
+
+## Run locally
 
 | Command | Description |
 | --- | --- |
@@ -103,5 +118,6 @@ To deploy your own copy, import the repository in Vercel with the **Vite** prese
 ## Contact
 
 - Email: [joelnogao625@gmail.com](mailto:joelnogao625@gmail.com)
+
 - GitHub: [github.com/joelng25](https://github.com/joelng25)
 - LinkedIn: [linkedin.com/in/joel-novio](https://www.linkedin.com/in/joel-novio)
