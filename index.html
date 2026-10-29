@@ -1,64 +1,37 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Joel Novio Garcia — Portfolio</title>
+    <meta name="author" content="Joel Novio Garcia" />
     <meta
       name="description"
-      content="Joel Novio García, Computer Engineering student (Software Engineering track) at UPC/FIB Barcelona, looking for afternoon frontend internships."
+      content="Projects by Joel Novio Garcia: Pulso Ciudadano, Lingua Check with LanguageTool, Task Tracker and C++ tools."
     />
-    <meta name="author" content="Joel Novio García" />
-    <meta name="color-scheme" content="light dark" />
-    <meta property="og:title" content="Joel Novio García" />
+    <meta property="og:title" content="Joel Novio Garcia — Portfolio" />
     <meta
       property="og:description"
-      content="Computer Engineering student at UPC/FIB Barcelona, looking for afternoon frontend internships."
+      content="Explore Pulso Ciudadano, Lingua Check, Task Tracker and more C++, Python, TypeScript and React projects."
     />
-    <meta property="og:type" content="profile" />
-    <meta name="theme-color" content="#f3efe6" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-portfolio.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Joel Novio Garcia — Portfolio" />
+    <meta
+      name="twitter:description"
+      content="Explore Pulso Ciudadano, Lingua Check, Task Tracker and more C++, Python, TypeScript and React projects."
+    />
+    <meta name="twitter:image" content="/og-portfolio.jpg" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="me" href="https://github.com/joelng25" />
     <link rel="me" href="https://www.linkedin.com/in/joel-novio" />
-    <link rel="me" href="mailto:joelnogao625@gmail.com" />
-    <title>Joel Novio García · Computer Engineering</title>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Joel Novio García",
-        "email": "mailto:joelnogao625@gmail.com",
-        "jobTitle": "Computer Engineering student",
-        "homeLocation": {
-          "@type": "Place",
-          "name": "Barcelona"
-        },
-        "affiliation": {
-          "@type": "CollegeOrUniversity",
-          "name": "Universitat Politècnica de Catalunya",
-          "department": "Facultat d'Informàtica de Barcelona"
-        },
-        "sameAs": [
-          "https://github.com/joelng25",
-          "https://www.linkedin.com/in/joel-novio"
-        ]
-      }
-    </script>
     <script>
-      (function () {
-        try {
-          var theme = localStorage.getItem('theme')
-          var dark =
-            theme === 'dark' ||
-            (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches)
-          if (dark) document.documentElement.classList.add('dark')
-          var lang = localStorage.getItem('lang')
-          if (lang === 'ca' || lang === 'es' || lang === 'en') {
-            document.documentElement.lang = lang
-          }
-          var themeColor = document.querySelector('meta[name="theme-color"]')
-          if (themeColor) themeColor.setAttribute('content', dark ? '#141210' : '#f3efe6')
-        } catch (e) {}
-      })()
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark'
+      }
     </script>
   </head>
   <body>

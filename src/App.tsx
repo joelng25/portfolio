@@ -1,314 +1,255 @@
 import { useEffect, useState } from 'react'
-import { copy, languageOptions, links, skillsList, type Lang } from './content'
-import { ExternalLink } from './components/ExternalLink'
-import { ScreenshotSlot } from './components/ScreenshotSlot'
+import { AsciiArt } from './components/AsciiArt'
+import { Contact } from './components/Contact'
+import { ArrowUpRight, Download, Github, Linkedin, Moon, Sun, Volume2, VolumeX } from './components/icons'
+import { ScrambleText as S } from './components/ScrambleText'
+import { copy, GITHUB, LANGS, LINKEDIN, projects, stack, type Lang } from './content'
+import { playClick, setSoundEnabled } from './sound'
 
-const sections = ['work', 'open-source', 'about', 'contact'] as const
-
-function readLang(): Lang {
-  const fromDom = document.documentElement.lang
-  if (fromDom === 'ca' || fromDom === 'es' || fromDom === 'en') return fromDom
-  return 'en'
-}
-
-function readTheme(): 'light' | 'dark' {
-  return document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-}
-
-function hasStoredTheme() {
-  try {
-    const stored = localStorage.getItem('theme')
-    return stored === 'light' || stored === 'dark'
-  } catch {
-    return false
-  }
-}
-
-function Icon({ theme }: { theme: 'light' | 'dark' }) {
-  if (theme === 'dark') {
-    return (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
-        <circle cx="12" cy="12" r="4" />
-        <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5 5l1.6 1.6M17.4 17.4 19 19M19 5l-1.6 1.6M6.6 17.4 5 19" strokeLinecap="round" />
-      </svg>
-    )
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.6">
-      <path d="M16.5 14.2A6.2 6.2 0 0 1 9.8 7.5 6.3 6.3 0 1 0 16.5 14.2Z" strokeLinejoin="round" />
-    </svg>
-  )
-}
+type Theme = 'dark' | 'light'
 
 export default function App() {
-  const [lang, setLang] = useState<Lang>(readLang)
-  const [theme, setTheme] = useState<'light' | 'dark'>(readTheme)
-  const [themeChosen, setThemeChosen] = useState(hasStoredTheme)
-  const [active, setActive] = useState<(typeof sections)[number] | null>(null)
-  const text = copy[lang]
-  const themeLabel = theme === 'dark' ? text.themeToLight : text.themeToDark
+  const [lang, setLang] = useState<Lang>('en')
+  const [theme, setTheme] = useState<Theme>('dark')
+  const [sound, setSound] = useState(true)
+  const [now, setNow] = useState<Date | null>(null)
+
+  useEffect(() => {
+    setNow(new Date())
+    const id = setInterval(() => setNow(new Date()), 1000)
+    return () => clearInterval(id)
+  }, [])
+
+  useEffect(() => {
+    const stored = localStorage.getItem('lang') as Lang | null
+    if (stored && LANGS.includes(stored)) setLang(stored)
+    const t: Theme = localStorage.getItem('theme') === 'light' ? 'light' : 'dark'
+    setTheme(t)
+    document.documentElement.dataset.theme = t
+    const s = localStorage.getItem('sound') !== 'off'
+    setSound(s)
+    setSoundEnabled(s)
+  }, [])
 
   useEffect(() => {
     document.documentElement.lang = lang
-    document.title = text.metaTitle
-    document.querySelector('meta[name="description"]')?.setAttribute('content', text.metaDescription)
-    document.querySelector('meta[property="og:title"]')?.setAttribute('content', text.metaTitle)
-    document.querySelector('meta[property="og:description"]')?.setAttribute('content', text.metaDescription)
-    try {
-      localStorage.setItem('lang', lang)
-    } catch {
-      // Preference stays for this visit when storage is blocked.
-    }
-  }, [lang, text])
+  }, [lang])
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'dark' ? '#141210' : '#f3efe6')
-    if (!themeChosen) return
-    try {
-      localStorage.setItem('theme', theme)
-    } catch {
-      // Preference stays for this visit when storage is blocked.
+    const onDown = (e: MouseEvent) => {
+      const el = (e.target as Element | null)?.closest?.('button, a')
+      if (el) playClick(el.tagName === 'A' ? 'link' : 'tap')
     }
-  }, [theme, themeChosen])
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)')
-    const onChange = (event: MediaQueryListEvent) => {
-      if (!themeChosen) setTheme(event.matches ? 'dark' : 'light')
-    }
-    media.addEventListener('change', onChange)
-    return () => media.removeEventListener('change', onChange)
-  }, [themeChosen])
-
-  useEffect(() => {
-    const nodes = sections
-      .map((id) => document.getElementById(id))
-      .filter((node): node is HTMLElement => node !== null)
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0]
-        const id = visible?.target.id
-        if (id === 'work' || id === 'open-source' || id === 'about' || id === 'contact') {
-          setActive(id)
-        }
-      },
-      { rootMargin: '-35% 0px -50% 0px', threshold: [0.15, 0.4, 0.7] },
-    )
-
-    nodes.forEach((node) => observer.observe(node))
-    return () => observer.disconnect()
+    document.addEventListener('mousedown', onDown)
+    return () => document.removeEventListener('mousedown', onDown)
   }, [])
 
-  const nav = [
-    { id: 'work' as const, label: text.nav.work },
-    { id: 'open-source' as const, label: text.nav.openSource },
-    { id: 'about' as const, label: text.nav.about },
-    { id: 'contact' as const, label: text.nav.contact },
-  ]
+  const chooseLang = (l: Lang) => {
+    setLang(l)
+    localStorage.setItem('lang', l)
+  }
+  const toggleTheme = () => {
+    const next: Theme = theme === 'dark' ? 'light' : 'dark'
+    setTheme(next)
+    localStorage.setItem('theme', next)
+    document.documentElement.dataset.theme = next
+  }
+  const toggleSound = () => {
+    const next = !sound
+    setSound(next)
+    setSoundEnabled(next)
+    localStorage.setItem('sound', next ? 'on' : 'off')
+  }
+
+  const d = copy[lang]
 
   return (
-    <>
-      <a
-        href="#content"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-paper"
-      >
-        {text.skip}
-      </a>
-
-      <header className="sticky top-0 z-40 border-b border-line bg-paper">
-        <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 px-5 py-3 sm:flex sm:px-8">
-          <a href="#top" className="col-start-1 row-start-1 font-serif text-lg leading-none text-ink no-underline sm:order-1">
-            Joel Novio García
-          </a>
-
-          <nav aria-label="Primary" className="col-span-2 row-start-2 flex flex-wrap gap-x-4 gap-y-1 text-sm sm:order-2 sm:w-auto sm:flex-1">
-            {nav.map((item) => (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                aria-current={active === item.id ? 'true' : undefined}
-                className={`no-underline underline-offset-4 hover:underline ${active === item.id ? 'text-ink underline' : 'text-muted'}`}
-              >
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="col-start-2 row-start-1 flex items-center justify-self-end gap-2 sm:order-3 sm:ml-auto">
-            <div role="group" aria-label={text.languageLabel} className="flex border border-line">
-              {languageOptions.map((option) => {
-                const selected = lang === option.id
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    aria-pressed={selected}
-                    aria-label={option.name}
-                    onClick={() => setLang(option.id)}
-                    className={`min-h-11 min-w-11 px-2 text-sm ${selected ? 'bg-ink text-paper' : 'bg-paper text-ink hover:bg-line/40'}`}
-                  >
-                    {option.short}
-                  </button>
-                )
-              })}
-            </div>
+    <div className="min-h-screen bg-background font-sans text-foreground transition-colors duration-300">
+      <header className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-6 py-6 text-xs uppercase tracking-widest">
+        <span>Joel Novio Garcia</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1">
             <button
-              type="button"
-              className="inline-flex min-h-11 min-w-11 items-center justify-center border border-line text-ink hover:bg-line/40"
-              aria-pressed={theme === 'dark'}
-              aria-label={themeLabel}
-              onClick={() => {
-                setThemeChosen(true)
-                setTheme((current) => (current === 'dark' ? 'light' : 'dark'))
-              }}
+              onClick={toggleTheme}
+              aria-label={`${d.theme}: ${theme === 'dark' ? d.light : d.dark}`}
+              className="p-1.5 text-muted-foreground transition-colors hover:text-primary"
             >
-              <Icon theme={theme} />
+              {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
+            <button
+              onClick={toggleSound}
+              aria-pressed={sound}
+              aria-label={d.sound}
+              className="p-1.5 text-muted-foreground transition-colors hover:text-primary"
+            >
+              {sound ? <Volume2 className="h-4 w-4" /> : <VolumeX className="h-4 w-4" />}
             </button>
           </div>
+          <div className="flex" role="group" aria-label="Language">
+            {LANGS.map((l) => (
+              <button
+                key={l}
+                onClick={() => chooseLang(l)}
+                aria-pressed={lang === l}
+                className={`px-1.5 py-1 uppercase ${lang === l ? 'text-primary underline underline-offset-4' : 'text-muted-foreground hover:text-primary'}`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+          <a href={GITHUB} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+            <Github className="h-4 w-4" />{' '}
+            <span className="hidden sm:inline">
+              <S>GitHub</S>
+            </span>
+          </a>
+          <a href={LINKEDIN} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-muted-foreground hover:text-primary">
+            <Linkedin className="h-4 w-4" />{' '}
+            <span className="hidden sm:inline">
+              <S>LinkedIn</S>
+            </span>
+          </a>
         </div>
       </header>
 
-      <main id="content">
-        <section id="top" className="mx-auto max-w-5xl px-5 py-16 sm:px-8 sm:py-24">
-          <p className="text-xs font-bold uppercase tracking-[0.16em] text-mark">{text.kicker}</p>
-          <p className="mt-3 text-sm text-muted">{text.place}</p>
-          <h1 className="mt-8 max-w-3xl font-serif text-5xl leading-[0.95] font-medium tracking-tight sm:text-7xl">
-            Joel Novio García
-          </h1>
-          <p className="mt-6 inline-block border border-ink px-3 py-1 text-sm">{text.availability}</p>
-          <p className="mt-8 max-w-2xl text-lg leading-8">{text.lede}</p>
-          <p className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-base">
-            <a className="underline decoration-1 underline-offset-[0.2em]" href={`mailto:${links.email}`}>
-              {text.emailCta}
-            </a>
-            <ExternalLink href={links.github} newTabLabel={text.newTab} identity>
-              {text.githubCta}
-            </ExternalLink>
+      <main className="mx-auto max-w-6xl px-6">
+        <section className="flex min-h-[88vh] flex-col justify-between gap-16 border-b border-border py-10 md:py-14">
+          <p className="max-w-4xl font-sans text-3xl font-extrabold leading-[1.05] tracking-tight md:text-5xl lg:text-6xl">
+            {d.statement}
           </p>
+          <div className="grid gap-10 text-xs uppercase tracking-widest md:grid-cols-3">
+            <span className="text-muted-foreground">{d.findOutMore}</span>
+            <ul className="space-y-1.5">
+              {projects.slice(0, 6).map((p) => (
+                <li key={p.repo}>
+                  <a href={`${GITHUB}/${p.repo}`} target="_blank" rel="noreferrer" className="transition-colors hover:text-primary">
+                    <S>{p.name}</S>
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <div className="flex flex-col items-start gap-5">
+              <span className="max-w-xs normal-case tracking-normal text-muted-foreground">
+                {d.role} — {d.basedIn}
+              </span>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 bg-foreground px-5 py-2.5 text-background transition-colors hover:bg-primary hover:text-primary-foreground"
+              >
+                <S>{d.getInTouch}</S> <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <a
+                href={`/cv/CV_Joel_Novio_${lang}.pdf`}
+                download={`CV_Joel_Novio_${lang}.pdf`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-primary"
+              >
+                <Download className="h-4 w-4" /> <S>{d.cv}</S>
+              </a>
+            </div>
+          </div>
+          <h1 aria-label="Joel Novio Garcia" className="w-full">
+            <AsciiArt name />
+          </h1>
         </section>
 
-        <section id="work" aria-labelledby="work-title" className="mx-auto max-w-5xl scroll-mt-36 px-5 py-8 sm:px-8">
-          <h2 id="work-title" className="font-serif text-3xl font-medium sm:text-4xl">
-            {text.workTitle}
-          </h2>
-          <ol className="mt-10 flex list-none flex-col gap-16 p-0">
-            {text.projects.map((project, index) => (
-              <li key={project.title}>
-                <article className="grid items-start gap-6 md:grid-cols-12">
-                  <div className="md:col-span-5">
-                    <ScreenshotSlot label={project.screenshot} />
+        <section className="py-16 md:py-24">
+          <div className="mb-10 flex items-baseline justify-between text-xs uppercase tracking-widest text-muted-foreground">
+            <h2>{d.selectedWork}</h2>
+            <span>{String(projects.length).padStart(2, '0')}</span>
+          </div>
+          <div>
+            {projects.map((p, i) => (
+              <article
+                key={p.repo}
+                className="group border-t border-border py-10 transition-colors last:border-b hover:bg-card md:py-12"
+              >
+                <div className="grid gap-6 md:grid-cols-12 md:gap-8">
+                  <div className="text-xs text-muted-foreground md:col-span-2">
+                    J{String(i + 1).padStart(3, '0')}
+                    <span className="mt-1 block">{p.year}</span>
                   </div>
-                  <div className="md:col-span-7">
-                    <p className="font-serif text-sm text-mark">
-                      {String(index + 1).padStart(2, '0')}
-                    </p>
-                    <h3 className="mt-2 font-serif text-3xl font-medium">{project.title}</h3>
-                    <p className="mt-4 max-w-xl leading-7">{project.summary}</p>
-                    {project.note ? <p className="mt-3 max-w-xl text-sm leading-6 text-muted">{project.note}</p> : null}
-                    <ul aria-label={text.stackLabel} className="mt-4 flex list-none flex-wrap gap-x-2 gap-y-1 p-0 text-sm text-muted">
-                      {project.stack.map((item) => (
-                        <li key={item} className="after:ml-2 after:content-['·'] last:after:content-none">
-                          {item}
-                        </li>
+                  <div className="md:col-span-6">
+                    <h3 className="font-sans text-3xl leading-tight transition-colors group-hover:text-primary md:text-4xl">
+                      <S>{p.name}</S>
+                      {p.demo && (
+                        <span className="ml-3 align-middle font-sans text-xs uppercase tracking-widest text-primary">
+                          [{d.live}]
+                        </span>
+                      )}
+                    </h3>
+                    <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground">{p.desc[lang]}</p>
+                  </div>
+                  <div className="flex flex-col justify-between gap-6 md:col-span-4">
+                    <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                      {p.tags.map((t) => (
+                        <span key={t}>{t}</span>
                       ))}
-                    </ul>
-                    {project.repo || project.live ? (
-                      <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-                        {project.repo ? (
-                          <ExternalLink href={project.repo} newTabLabel={text.newTab}>
-                            {text.code}
-                          </ExternalLink>
-                        ) : null}
-                        {project.live ? (
-                          <ExternalLink href={project.live} newTabLabel={text.newTab}>
-                            {text.live}
-                          </ExternalLink>
-                        ) : null}
-                      </p>
-                    ) : null}
+                    </div>
+                    <div className="flex flex-wrap gap-5 text-xs uppercase tracking-widest">
+                      <a href={`${GITHUB}/${p.repo}`} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary">
+                        <S>{d.code}</S> <ArrowUpRight className="h-3.5 w-3.5" />
+                      </a>
+                      {p.demo && (
+                        <a href={p.demo} target="_blank" rel="noreferrer" className="flex items-center gap-1 text-primary hover:underline">
+                          <S>{d.demo}</S> <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                      {p.extra && (
+                        <a href={p.extra.href} target="_blank" rel="noreferrer" className="flex items-center gap-1 hover:text-primary">
+                          <S>{p.extra.label}</S> <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </article>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section id="open-source" aria-labelledby="oss-title" className="mx-auto max-w-5xl scroll-mt-36 px-5 py-16 sm:px-8">
-          <h2 id="oss-title" className="font-serif text-3xl font-medium sm:text-4xl">
-            {text.openSourceTitle}
-          </h2>
-          <div className="mt-8 grid gap-px border border-line bg-line md:grid-cols-2">
-            {text.openSource.map((item) => (
-              <article key={item.title} className="bg-paper p-6 sm:p-8">
-                <h3 className="font-serif text-2xl font-medium">{item.title}</h3>
-                <p className="mt-4 leading-7">{item.summary}</p>
-                <p className="mt-5 flex flex-wrap gap-x-5 gap-y-2">
-                  {item.links.map((link) => (
-                    <ExternalLink key={link.href} href={link.href} newTabLabel={text.newTab}>
-                      {link.label}
-                    </ExternalLink>
-                  ))}
-                </p>
+                </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section id="about" aria-labelledby="about-title" className="mx-auto max-w-5xl scroll-mt-36 px-5 py-8 sm:px-8">
-          <h2 id="about-title" className="font-serif text-3xl font-medium sm:text-4xl">
-            {text.aboutTitle}
-          </h2>
-          <p className="mt-6 max-w-2xl text-lg leading-8">{text.aboutBody}</p>
-
-          <h3 className="mt-12 font-serif text-2xl font-medium">{text.skillsTitle}</h3>
-          <ul className="mt-4 flex max-w-3xl list-none flex-wrap gap-2 p-0">
-            {skillsList.map((skill) => (
-              <li key={skill} className="border border-line px-3 py-2 text-sm">
-                {skill}
-              </li>
-            ))}
-          </ul>
-
-          <h3 className="mt-12 font-serif text-2xl font-medium">{text.languagesTitle}</h3>
-          <dl className="mt-4 max-w-md">
-            {text.languages.map((language) => (
-              <div key={language.name} className="flex items-baseline justify-between gap-6 border-b border-line py-3">
-                <dt>{language.name}</dt>
-                <dd className="text-muted">{language.level}</dd>
-              </div>
-            ))}
-          </dl>
+        <section className="grid gap-8 border-t border-border py-16 md:grid-cols-12 md:py-24">
+          <h2 className="text-xs uppercase tracking-widest text-muted-foreground md:col-span-2">{d.about}</h2>
+          <div className="md:col-span-10">
+            <p className="max-w-2xl text-base leading-relaxed md:text-lg">{d.aboutText}</p>
+            <div className="mt-6 flex flex-wrap gap-x-4 gap-y-1 text-xs uppercase tracking-widest text-muted-foreground">
+              {stack.map((s) => (
+                <span key={s}>{s}</span>
+              ))}
+            </div>
+          </div>
         </section>
 
-        <section id="contact" aria-labelledby="contact-title" className="mx-auto min-h-[calc(100svh-9rem)] max-w-5xl scroll-mt-36 px-5 py-16 sm:px-8">
-          <h2 id="contact-title" className="font-serif text-3xl font-medium sm:text-4xl">
-            {text.contactTitle}
-          </h2>
-          <p className="mt-4 text-muted">{text.contactBody}</p>
-          <address className="mt-8 flex flex-col gap-4 not-italic text-lg">
-            <a className="w-fit underline decoration-1 underline-offset-[0.2em] break-all" href={`mailto:${links.email}`}>
-              {links.email}
-            </a>
-            <ExternalLink href={links.github} newTabLabel={text.newTab} identity className="w-fit">
-              {links.githubLabel}
-            </ExternalLink>
-            <ExternalLink href={links.linkedin} newTabLabel={text.newTab} identity className="w-fit">
-              {links.linkedinLabel}
-            </ExternalLink>
-          </address>
-        </section>
+        <div id="contact" className="scroll-mt-8">
+          <Contact lang={lang} />
+        </div>
       </main>
 
-      <footer className="border-t border-line">
-        <div className="mx-auto flex max-w-5xl px-5 py-8 text-sm text-muted sm:px-8">
-          <p>{text.footer}</p>
+      <footer className="mt-16 border-t border-border">
+        <div className="mx-auto grid max-w-6xl gap-6 px-6 py-8 text-xs uppercase tracking-widest text-muted-foreground md:grid-cols-3">
+          <div>
+            <span className="block">BCN</span>
+            <span className="mt-1 block tabular-nums">
+              {now ? `${now.toLocaleDateString(lang, { weekday: 'long' })} ${now.toLocaleTimeString(lang, { hour12: false })}` : '—'}
+            </span>
+          </div>
+          <div>
+            <span className="block">GitHub</span>
+            <a href={GITHUB} target="_blank" rel="noreferrer" className="mt-1 block transition-colors hover:text-primary">
+              github.com/joelng25
+            </a>
+          </div>
+          <div>
+            <span className="block">LinkedIn</span>
+            <a href={LINKEDIN} target="_blank" rel="noreferrer" className="mt-1 block transition-colors hover:text-primary">
+              linkedin.com/in/joel-novio
+            </a>
+          </div>
         </div>
+        <p className="mx-auto max-w-6xl px-6 pb-4 text-xs text-muted-foreground">© {new Date().getFullYear()} Joel Novio Garcia</p>
+        <AsciiArt />
       </footer>
-    </>
+    </div>
   )
 }

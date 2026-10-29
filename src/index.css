@@ -1,90 +1,183 @@
 @import "tailwindcss";
-@import "@fontsource/atkinson-hyperlegible/latin-400.css";
-@import "@fontsource/atkinson-hyperlegible/latin-700.css";
-@import "@fontsource/fraunces/latin-500.css";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --default-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --default-mono-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
 @theme inline {
-  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
   --color-muted: var(--muted);
-  --color-line: var(--line);
-  --color-mark: var(--mark);
-  --color-mark-ink: var(--mark-ink);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
 }
 
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
+}
+
+:root[data-theme="light"] {
+  --radius: 0.25rem;
+  --background: oklch(97% 0.018 75);
+  --foreground: oklch(32% 0.055 40);
+  --card: oklch(99% 0.01 75);
+  --card-foreground: oklch(32% 0.055 40);
+  --popover: oklch(99% 0.01 75);
+  --popover-foreground: oklch(32% 0.055 40);
+  --primary: oklch(52% 0.19 25);
+  --primary-foreground: oklch(98% 0.01 75);
+  --secondary: oklch(94% 0.028 75);
+  --secondary-foreground: oklch(32% 0.055 40);
+  --muted: oklch(93% 0.025 75);
+  --muted-foreground: oklch(47% 0.06 55);
+  --accent: oklch(60% 0.18 45);
+  --accent-foreground: oklch(98% 0.01 75);
+  --destructive: oklch(52% 0.19 25);
+  --destructive-foreground: oklch(98% 0 0);
+  --border: oklch(86% 0.028 70);
+  --input: oklch(86% 0.028 70);
+  --ring: oklch(52% 0.19 25);
+  --chart-1: oklch(52% 0.19 25);
+  --chart-2: oklch(60% 0.18 45);
+  --chart-3: oklch(60% 0.13 65);
+  --chart-4: oklch(32% 0.055 40);
+  --chart-5: oklch(47% 0.06 55);
+  --sidebar: oklch(99% 0.01 75);
+  --sidebar-foreground: oklch(32% 0.055 40);
+  --sidebar-primary: oklch(52% 0.19 25);
+  --sidebar-primary-foreground: oklch(98% 0.01 75);
+  --sidebar-accent: oklch(94% 0.028 75);
+  --sidebar-accent-foreground: oklch(32% 0.055 40);
+  --sidebar-border: oklch(86% 0.028 70);
+  --sidebar-ring: oklch(52% 0.19 25);
+}
 :root {
-  --paper: #f3efe6;
-  --ink: #1c1917;
-  --muted: #44403c;
-  --line: #d6d0c4;
-  --mark: #8f2d16;
-  --mark-ink: #fff7f3;
-  color-scheme: light;
+  --background: oklch(20.5% 0 0);
+  --foreground: oklch(96.2% 0.006 95);
+  --card: oklch(24% 0 0);
+  --card-foreground: oklch(96.2% 0.006 95);
+  --popover: oklch(24% 0 0);
+  --popover-foreground: oklch(96.2% 0.006 95);
+  --primary: oklch(62% 0.19 25);
+  --primary-foreground: oklch(98% 0 0);
+  --secondary: oklch(27% 0 0);
+  --secondary-foreground: oklch(96.2% 0.006 95);
+  --muted: oklch(26% 0 0);
+  --muted-foreground: oklch(68% 0 0);
+  --accent: oklch(70% 0.15 45);
+  --accent-foreground: oklch(20.5% 0 0);
+  --destructive: oklch(55% 0.19 25);
+  --destructive-foreground: oklch(98% 0 0);
+  --border: oklch(32% 0 0);
+  --input: oklch(32% 0 0);
+  --ring: oklch(62% 0.19 25);
+  --chart-1: oklch(62% 0.19 25);
+  --chart-2: oklch(70% 0.15 45);
+  --chart-3: oklch(80% 0.1 65);
+  --chart-4: oklch(95% 0 0);
+  --chart-5: oklch(65% 0 0);
+  --sidebar: oklch(17% 0 0);
+  --sidebar-foreground: oklch(95% 0 0);
+  --sidebar-primary: oklch(62% 0.19 25);
+  --sidebar-primary-foreground: oklch(98% 0 0);
+  --sidebar-accent: oklch(22% 0 0);
+  --sidebar-accent-foreground: oklch(95% 0 0);
+  --sidebar-border: oklch(28% 0 0);
+  --sidebar-ring: oklch(62% 0.19 25);
 }
-
-.dark {
-  --paper: #141210;
-  --ink: #f5f1ea;
-  --muted: #d4cfc4;
-  --line: #3a342c;
-  --mark: #e7b5a3;
-  --mark-ink: #1c1917;
-  color-scheme: dark;
+.ascii-name {
+  aspect-ratio: 1400/180;
+  width: 100%;
+  color: var(--foreground);
+  position: relative;
 }
-
-html {
-  scroll-behavior: smooth;
+.ascii-name-trigger {
+  width: 100%;
+  height: 100%;
+  color: inherit;
+  background: 0 0;
+  border-radius: 0;
+  padding: 0;
+  position: absolute;
+  inset: 0;
 }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  background: var(--paper);
-  color: var(--ink);
+.ascii-name-trigger:hover {
+  color: inherit;
+  background: 0 0;
+}
+.ascii-name-original,
+.ascii-canvas {
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+.ascii-name-original text {
+  fill: currentColor;
   font-family: var(--font-sans);
-  text-rendering: optimizeLegibility;
+  letter-spacing: 0;
+  font-size: 148px;
+  font-weight: 800;
 }
-
-::selection {
-  background: var(--mark);
-  color: var(--mark-ink);
+.ascii-name .ascii-canvas {
+  opacity: 0;
 }
-
-:focus {
-  outline: none;
+.ascii-name[data-active="true"] .ascii-canvas {
+  opacity: 1;
 }
-
-:focus-visible {
-  outline: 2px solid var(--mark);
-  outline-offset: 3px;
+.ascii-name[data-active="true"] .ascii-name-original {
+  opacity: 0;
 }
-
+.ascii-wave {
+  width: 100%;
+  height: 170px;
+  position: relative;
+  overflow: hidden;
+}
+.scramble-text {
+  display: inline;
+}
+.scramble-character {
+  white-space: pre;
+  display: inline-grid;
+  position: relative;
+}
+.scramble-original {
+  visibility: hidden;
+  grid-area: 1/1;
+}
+.scramble-glyph {
+  text-align: center;
+  position: absolute;
+  inset: 0;
+}
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  :before,
+  :after {
     scroll-behavior: auto !important;
-  }
-}
-
-@media print {
-  .no-print {
-    display: none !important;
-  }
-
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.85em;
+    transition-duration: 0s !important;
   }
 }
